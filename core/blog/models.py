@@ -55,6 +55,8 @@ class Post(models.Model):
 
     objects = models.Manager()
     published = PublishedManager()
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.title
@@ -69,3 +71,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post}'
+
+    class Meta:
+        ordering = ['-created_at']

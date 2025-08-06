@@ -1,0 +1,33 @@
+{% extends 'parent/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <h4>By {{ post.author }}</h4>
+
+    <p>{{ post.body|linebreaks }}</p>
+
+    <p>Created at: {{ post.created_at|date:"Y/m/d" }}</p>
+
+    <hr>
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div>
+            <p>{{ comment.body }}</p>
+            <small>By {{ comment.name }} on {{ comment.created_at|date:"Y/m/d H:i" }}</small>
+            <hr>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <hr>
+    <h2>Leave a Comment</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">send</button>
+    </form>
+{% endblock content %}
