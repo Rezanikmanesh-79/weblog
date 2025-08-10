@@ -19,10 +19,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.role})"
-
-class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(unique=True)
-
-    def __str__(self):
-        return self.name

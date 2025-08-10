@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from blog.models import User, Post, Category, Tag, Comment
-
+from blog.models import  Post, Category, Tag, Comment
+from accounting.models import User
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
