@@ -1,0 +1,23 @@
+{% extends 'parent/base.html' %}
+
+{% block content %}
+<h2>Login</h2>
+
+<form method="post" novalidate>
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div style="color: red;">
+            نام کاربری یا رمز عبور اشتباه است.
+        </div>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Login</button>
+</form>
+
+<p>
+    <a href="{% url 'accounting:password_reset' %}">Forgot password?</a>
+</p>
+{% endblock %}

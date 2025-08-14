@@ -1,0 +1,60 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}
+    {% if view.object %}
+        {{ view.object.title }}
+    {% else %}
+        New Post
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-4">
+        {% if view.object %}
+            Edit Post: {{ view.object.title }}
+        {% else %}
+            Create New Post
+        {% endif %}
+    </h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-4">
+            <label for="{{ form.title.id_for_label }}" class="block font-semibold">Title:</label>
+            {{ form.title.errors }}
+            {{ form.title }}
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.body.id_for_label }}" class="block font-semibold">Body:</label>
+            {{ form.body.errors }}
+            {{ form.body }}
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.status.id_for_label }}" class="block font-semibold">Status:</label>
+            {{ form.status.errors }}
+            {{ form.status }}
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.categories.id_for_label }}" class="block font-semibold">Categories:</label>
+            {{ form.categories.errors }}
+            {{ form.categories }}
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.tags.id_for_label }}" class="block font-semibold">Tags:</label>
+            {{ form.tags.errors }}
+            {{ form.tags }}
+        </div>
+
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+            {% if view.object %}Update{% else %}Create{% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}تغییر رمز{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">تغییر رمز عبور</h2>
+
+<form method="post" class="max-w-md">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        تغییر رمز
+    </button>
+</form>
+{% endblock %}

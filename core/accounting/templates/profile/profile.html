@@ -1,0 +1,53 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}پروفایل{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-8 p-6 bg-white shadow-xl rounded-xl">
+    <!-- هدر پروفایل -->
+    <div class="flex items-center space-x-6">
+        <!-- تصویر پروفایل -->
+        <div class="w-24 h-24">
+            <img class="rounded-full object-cover w-full h-full" 
+                 src="https://ui-avatars.com/api/?name={{ user.username }}&background=random" 
+                 alt="Profile Picture">
+        </div>
+        <!-- نام کاربر -->
+        <div>
+            <h1 class="text-3xl font-bold">{{ user.username }}</h1>
+            <p class="text-gray-500">ایمیل: {{ user.email }}</p>
+            <p class="text-gray-400 text-sm">تاریخ عضویت: {{ user.date_joined|date:"Y/m/d" }}</p>
+        </div>
+    </div>
+
+    <!-- کارت اطلاعات و اکشن‌ها -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- تغییر رمز -->
+        <a href="{% url 'accounting:password_change' %}" 
+           class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-lg shadow flex items-center justify-center">
+            تغییر رمز عبور
+        </a>
+
+        <!-- خروج -->
+        <form action="{% url 'accounting:logout' %}" method="post" class="flex items-center justify-center">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="bg-red-500 hover:bg-red-600 text-white px-6 py-4 rounded-lg shadow w-full">
+                خروج
+            </button>
+        </form>
+    </div>
+
+    <!-- اطلاعات اضافی یا آمار کاربر -->
+    <div class="mt-8 bg-gray-50 p-4 rounded-lg shadow-inner">
+        <h2 class="text-xl font-semibold mb-2">اطلاعات حساب کاربری</h2>
+        <ul class="text-gray-700 list-disc list-inside">
+            <li>نام کاربری: {{ user.username }}</li>
+            <li>ایمیل: {{ user.email }}</li>
+            <li>تاریخ عضویت: {{ user.date_joined|date:"Y/m/d H:i" }}</li>
+            <li>فعال بودن حساب: {% if user.is_active %}بله{% else %}خیر{% endif %}</li>
+            <li>سوپر یوزر: {% if user.is_superuser %}بله{% else %}خیر{% endif %}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
